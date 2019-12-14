@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://End.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 580.0
+custom_constants/separation = 30
+
+[node name="WithData" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+margin_right = 984.0
+margin_bottom = 291.0
+text = "Thank you for playing!
+We hope you have been spooked,
+but not too much.
+
+Rest assured that no data was
+uploaded anywhere by this game
+nor anything was sent to anyone."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoData" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_right = 984.0
+margin_bottom = 21.0
+text = "Thank you for playing! This is the
+ rather unspectacular ending.
+
+Try adding some documents to
+$DOCS
+and come back!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Source" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 51.0
+margin_right = 984.0
+margin_bottom = 56.0
+text = "You can view the game's source at
+https://github.com/GreenBeakCrow/AI-Assistant-Ivory"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 984.0
+margin_bottom = 529.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer"]
+visible = false
+margin_left = 417.0
+margin_top = 218.0
+margin_right = 567.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Quit"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 559.0
+margin_right = 984.0
+margin_bottom = 560.0
+text = "Made with Godot"
+align = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/InvalidInput.wav-bc78dcb79e0bae3bb9de92162552181e.sample"
+
+[deps]
+
+source_file="res://InvalidInput.wav"
+dest_files=[ "res://.import/InvalidInput.wav-bc78dcb79e0bae3bb9de92162552181e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

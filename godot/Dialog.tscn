@@ -1,0 +1,174 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Dialog.gd" type="Script" id=1]
+[ext_resource path="res://dialog_patch.png" type="Texture" id=2]
+[ext_resource path="res://ui_theme.tres" type="Theme" id=3]
+[ext_resource path="res://Audio.tscn" type="PackedScene" id=5]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dialog" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1024, 300 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 3 )
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Windows" type="VBoxContainer" parent="Dialog"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 584.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 16
+
+[node name="TextWindow" type="MarginContainer" parent="Dialog/Windows"]
+margin_right = 992.0
+margin_bottom = 214.0
+mouse_filter = 1
+
+[node name="Texture" type="NinePatchRect" parent="Dialog/Windows/TextWindow"]
+margin_right = 992.0
+margin_bottom = 214.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="InnerMargin" type="MarginContainer" parent="Dialog/Windows/TextWindow"]
+margin_right = 992.0
+margin_bottom = 214.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Dialog/Windows/TextWindow/InnerMargin"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 960.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 0, 150 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 11
+autowrap = true
+
+[node name="Arrow" type="Label" parent="Dialog/Windows/TextWindow/InnerMargin"]
+margin_left = 934.0
+margin_top = 138.0
+margin_right = 960.0
+margin_bottom = 182.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = ">"
+align = 2
+valign = 2
+
+[node name="InputWindow" type="MarginContainer" parent="Dialog/Windows"]
+margin_top = 230.0
+margin_right = 992.0
+margin_bottom = 522.0
+
+[node name="Texture" type="NinePatchRect" parent="Dialog/Windows/InputWindow"]
+margin_right = 992.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="InnerMargin" type="MarginContainer" parent="Dialog/Windows/InputWindow"]
+margin_right = 992.0
+margin_bottom = 292.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="VBoxContainer" parent="Dialog/Windows/InputWindow/InnerMargin"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 960.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 400, 0 )
+custom_constants/separation = 8
+
+[node name="TextInput" type="HBoxContainer" parent="Dialog/Windows/InputWindow/InnerMargin/Options"]
+margin_right = 928.0
+margin_bottom = 54.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput"]
+margin_top = 5.0
+margin_right = 165.0
+margin_bottom = 49.0
+text = "You say:"
+
+[node name="Input" type="LineEdit" parent="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput"]
+margin_left = 173.0
+margin_right = 807.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+
+[node name="Enter" type="Button" parent="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput"]
+margin_left = 815.0
+margin_right = 928.0
+margin_bottom = 54.0
+text = "Enter"
+
+[node name="Option1" type="Button" parent="Dialog/Windows/InputWindow/InnerMargin/Options"]
+margin_top = 62.0
+margin_right = 928.0
+margin_bottom = 112.0
+
+[node name="Option2" type="Button" parent="Dialog/Windows/InputWindow/InnerMargin/Options"]
+margin_top = 120.0
+margin_right = 928.0
+margin_bottom = 170.0
+
+[node name="Option3" type="Button" parent="Dialog/Windows/InputWindow/InnerMargin/Options"]
+margin_top = 178.0
+margin_right = 928.0
+margin_bottom = 228.0
+
+[node name="Audio" parent="Dialog" instance=ExtResource( 5 )]
+[connection signal="gui_input" from="Dialog" to="Dialog" method="_on_Dialog_gui_input"]
+[connection signal="gui_input" from="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput/Input" to="Dialog" method="_on_Input_gui_input"]
+[connection signal="text_changed" from="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput/Input" to="Dialog" method="_on_Input_text_changed"]
+[connection signal="text_entered" from="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput/Input" to="Dialog" method="_on_Input_text_entered"]
+[connection signal="pressed" from="Dialog/Windows/InputWindow/InnerMargin/Options/TextInput/Enter" to="Dialog" method="_on_Enter_pressed"]
+[connection signal="pressed" from="Dialog/Windows/InputWindow/InnerMargin/Options/Option1" to="Dialog" method="_on_Option1_pressed"]
+[connection signal="pressed" from="Dialog/Windows/InputWindow/InnerMargin/Options/Option2" to="Dialog" method="_on_Option2_pressed"]
+[connection signal="pressed" from="Dialog/Windows/InputWindow/InnerMargin/Options/Option3" to="Dialog" method="_on_Option3_pressed"]
