@@ -20,6 +20,7 @@ var _is_slave: bool
 
 var _controls_enabled: bool
 var _text_progress: float = 0
+var _is_printing: bool = false
 var _done: bool = false
 
 var _pn1_key: String # used to store he/she/they
@@ -64,7 +65,7 @@ func _ready():
 	_start_section("Intro")
 
 func _process(delta):
-	if _is_text_printing():
+	if _is_printing:
 		_print_text(delta)
 	else:
 		$Audio.text_off()
@@ -346,6 +347,8 @@ func _start_section(name: String):
 # Starts the given part of the current dialog.
 func _start_part(num: int):
 	_controls_enabled = false
+	_awaiting_input = false
+	_is_printing = true
 	$Audio.text_on()
 	
 	_current_part = num
@@ -363,7 +366,8 @@ func _start_part(num: int):
 # Ends the current part. The last part of each section may contain controls
 # for user input which are initialised accordingly.
 func _end_current_part():
-	_awaiting_input = false
+	_is_printing = false
+
 	$Windows/TextWindow/InnerMargin/Arrow.show()
 	if _is_last_part():
 		var option1Caption = _current_section.option1Caption
@@ -414,11 +418,6 @@ func _show_next_part():
 # Returns true iff the current part is the section's last.
 func _is_last_part() -> bool:
 	return _current_part + 1 == _current_section.parts.size()
-
-# Returns true if there is not all text yet visible in the dialog window.
-func _is_text_printing() -> bool:
-	var text = $Windows/TextWindow/InnerMargin/Text
-	return text.percent_visible < 1
 
 # Sets button visibility and caption.
 func _set_button(button: Button, caption: String) -> int:
